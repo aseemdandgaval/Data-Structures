@@ -36,5 +36,4 @@ int main() {
 	
 	display(arr);
 	return 0;
-	lol
 }
