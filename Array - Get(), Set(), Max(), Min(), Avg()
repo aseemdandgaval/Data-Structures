@@ -1,0 +1,79 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+struct Array{
+	int A[20];
+	int size;
+	int lenght;	
+};
+
+void display(struct Array arr){
+	cout<<"The elements are: "<<endl;
+	for(int i=0; i<arr.lenght; i++){
+		cout<<arr.A[i]<<" ";
+	}
+	cout<<endl<<endl;
+}
+
+int Get(struct Array arr, int index){
+	if(index>=0 && index<arr.lenght){
+		return arr.A[index];
+	}
+	return -1;
+}
+
+void Set(struct Array *arr, int index, int x){
+	if(index>=0 && index<arr->lenght){
+		arr->A[index] = x;
+	}
+
+}
+
+int Max(struct Array arr){
+	int max = arr.A[0];
+	for(int i=0; i<arr.lenght;i++){
+		if(arr.A[i]>max){
+			max = arr.A[i];
+		}
+	}
+	return max;
+}
+
+int Min(struct Array arr){
+	int min = arr.A[0];
+	for(int i=0; i<arr.lenght;i++){
+		if(arr.A[i]<min){
+			min = arr.A[i];
+		}
+	}
+	return min;
+}
+
+int Sum(struct Array arr){
+	int s = 0;
+	for(int i=0; i<arr.lenght;i++){
+		s = s + arr.A[i];
+	}
+	return s;
+}
+
+float Avg(struct Array arr){
+	return Sum(arr)/arr.lenght;
+}
+
+int main() {
+	struct Array arr = {{2,4,6,8,10},10,5};
+	display(arr);
+	
+	Set(&arr,3,59);
+	display(arr);
+	cout<<"The element at the index is: "<<Get(arr,3)<<endl<<endl;
+	cout<<"The max is: "<<Max(arr)<<endl<<endl;
+	cout<<"The min is: "<<Min(arr)<<endl<<endl;
+	cout<<"The average is: "<<Avg(arr)<<endl<<endl;
+	
+	return 0;	
+}
