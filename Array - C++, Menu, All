@@ -1,0 +1,391 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+struct Array{
+	int *A;
+	int size;
+	int lenght;	
+};
+
+void display(struct Array arr){
+	cout<<"The elements are: "<<endl;
+	for(int i=0; i<arr.lenght; i++){
+		cout<<arr.A[i]<<" ";
+	}
+	cout<<endl<<endl;
+}
+
+void append(struct Array *arr, int x){
+	if(arr->lenght < arr->size){
+		arr->A[arr->lenght++] = x;
+	}
+}
+
+void insert(struct Array *arr, int index, int x){
+	if(index>=0 && index<= arr->lenght){
+		for(int i=arr->lenght; i>index; i--){
+			arr->A[i] = arr->A[i-1];
+		}
+		arr->A[index] = x;
+		arr->lenght++;
+	}
+}
+
+void Delete(struct Array *arr, int index){
+	if(index>=0 && index< arr->lenght){
+		for(int i=index; i<arr->lenght-1; i++){
+			arr->A[i] = arr->A[i+1];
+		}
+		arr->lenght--;
+	}
+}
+
+int Get(struct Array arr, int index){
+	if(index>=0 && index<arr.lenght){
+		return arr.A[index];
+	}
+	return -1;
+}
+
+void Set(struct Array *arr, int index, int x){
+	if(index>=0 && index<arr->lenght){
+		arr->A[index] = x;
+	}
+
+}
+
+int Max(struct Array arr){
+	int max = arr.A[0];
+	for(int i=0; i<arr.lenght;i++){
+		if(arr.A[i]>max){
+			max = arr.A[i];
+		}
+	}
+	return max;
+}
+
+int Min(struct Array arr){
+	int min = arr.A[0];
+	for(int i=0; i<arr.lenght;i++){
+		if(arr.A[i]<min){
+			min = arr.A[i];
+		}
+	}
+	return min;
+}
+
+int Sum(struct Array arr){
+	int s = 0;
+	for(int i=0; i<arr.lenght;i++){
+		s = s + arr.A[i];
+	}
+	return s;
+}
+
+float Avg(struct Array arr){
+	return Sum(arr)/arr.lenght;
+}
+
+void swap(int *x, int *y){
+	int temp = *x;
+	*x = *y;
+	*y = temp;
+}
+
+int linearsearch(struct Array *arr, int key){
+	for (int i=0;i<arr->lenght;i++){
+		if(key==arr->A[i]){
+			swap(&arr->A[i],&arr->A[i-1]);     //Transposition
+			//swap(&arr->A[i],&arr->A[0]);     //Move to head/front
+			return i;
+		}
+	}
+	return -1;
+}
+
+int binarysearch(struct Array arr, int key){
+	int l = 0;
+	int mid;
+	int h = arr.lenght-1;
+
+	while(l<=h){
+		mid = (l+h)/2;
+		if(key==arr.A[mid]){
+			return mid;
+		}
+		else if(key<arr.A[mid]){
+			h = mid-1;
+		}
+		else{
+			l = mid+1;
+		}
+	}
+	return -1;
+}
+
+void Reverse(struct Array *arr){
+	int *B;
+	B = new int[arr->lenght];
+	int i,j;
+	for(i=arr->lenght-1,j=0; i>=0; i--,j++){
+		B[j] = arr->A[i];
+	}
+
+	for(int i=0;i<arr->lenght;i++){
+		arr->A[i] = B[i];
+	}
+}
+
+void Reverse2(struct Array *arr){
+	for(int i=0,j=arr->lenght-1; i<j; i++,j--){
+		swap(arr->A[i], arr->A[j]);
+	}
+}
+
+void InsertSort(struct Array *arr, int x){
+	int i = arr->lenght-1;
+	if(arr->lenght==arr->size){
+		return;
+	}
+	while(i>=0 && arr->A[i]>x){
+		arr->A[i+1] = arr->A[i];
+		i--;
+	}
+	arr->A[i+1] = x;
+	arr->lenght++;
+}
+
+int isSorted(struct Array arr){
+	for (int i=0; i<arr.lenght-1; i++){
+		if(arr.A[i]>arr.A[i+1]){
+			return 0;                    // 0 means array is not sorted.
+		} 								 
+	}
+	return 1;                            // 1 means array is sorted.
+}
+
+int recbinsearch(int a[], int l,int h, int key){
+	int mid;
+
+	if(l<=h){
+		mid  = (l+h)/2;
+		if(key==a[mid]){
+			return mid;
+		}
+		else if(key<a[mid]){
+			return recbinsearch(a, l, mid-1, key);
+		}
+		else{
+			return recbinsearch(a, mid+1, h, key);
+		}
+	}
+}
+
+void Rearrange(struct Array *arr){
+	int i = 0;
+	int j = arr->lenght-1;
+
+	while(i<j){
+		while(arr->A[i]<0){i++;}
+		while(arr->A[j]>0){j--;}
+		if(i<j){
+			swap(&arr->A[i],&arr->A[j]);
+		}
+	}
+}
+
+struct Array* Merge(struct Array *arr1, struct Array *arr2){
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	
+	struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+	
+	while(i<arr1->lenght && j<arr2->lenght){
+		if(arr1->A[i] < arr2->A[j]){
+			arr3->A[k++] = arr1->A[i++];
+		}
+		else{
+			arr3->A[k++] = arr2->A[j++];
+		}
+	}
+	
+	for(; i<arr1->lenght; i++){
+		arr3->A[k++] = arr1->A[i];
+	}
+	for(; j<arr2->lenght; j++){
+		arr3->A[k++] = arr2->A[j];
+	}
+	
+	arr3->lenght = arr1->lenght + arr2->lenght;
+	arr3->size  = 10;
+	
+	return arr3;
+}
+
+struct Array* Union(struct Array *arr1, struct Array *arr2){
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	
+	struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+	
+	while(i<arr1->lenght && j<arr2->lenght){
+		if(arr1->A[i] < arr2->A[j]){
+			arr3->A[k++] = arr1->A[i++];
+		}
+		else if(arr2->A[j] < arr1->A[i]){
+			arr3->A[k++] = arr2->A[j++];
+		}
+		else{
+			arr3->A[k++] = arr1->A[i++];
+			j++;
+		}
+	}
+	
+	for(; i<arr1->lenght; i++){
+		arr3->A[k++] = arr1->A[i];
+	}
+	for(; j<arr2->lenght; j++){
+		arr3->A[k++] = arr2->A[j];
+	}
+	
+	arr3->lenght = k;
+	arr3->size  = 10;
+	
+	return arr3;
+}
+
+struct Array* Intersection(struct Array *arr1, struct Array *arr2){
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	
+	struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+	
+	while(i<arr1->lenght && j<arr2->lenght){
+		if(arr1->A[i] < arr2->A[j]){
+			i++;
+		}
+		else if(arr2->A[j] < arr1->A[i]){
+			j++;
+		}
+		else if(arr1->A[i] == arr2->A[j]){
+			arr3->A[k++] = arr1->A[i++];
+			j++;
+		}
+	}
+		
+	arr3->lenght = k;
+	arr3->size  = 10;
+	
+	return arr3;
+}
+
+struct Array* Difference(struct Array *arr1, struct Array *arr2){
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	
+	struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+	
+	while(i<arr1->lenght && j<arr2->lenght){
+		if(arr1->A[i] < arr2->A[j]){
+			arr3->A[k++] = arr1->A[i++];
+		}
+		else if(arr2->A[j] < arr1->A[i]){
+			j++;
+		}
+		else{
+			i++;
+			j++;
+		}
+	}
+	
+	for(; i<arr1->lenght; i++){
+		arr3->A[k++] = arr1->A[i];
+	}
+	
+	arr3->lenght = k;
+	arr3->size  = 10;
+	
+	return arr3;
+}
+
+int main() {
+	struct Array arr1;
+	int choice;
+	int x;
+	int y;
+	
+	cout<<"Enter the size of the array that you want to create: "<<endl;
+	cin>>arr1.size;
+	arr1.A = new int[arr1.size];  //arr1.A = (int *)malloc(arr1.size*sizeof(int));
+	cout<<endl;
+	
+	do{
+	
+	cout<<"------MENU------"<<endl<<endl;
+	cout<<"0. Display"<<endl;
+	cout<<"1. Append"<<endl;
+	cout<<"2. Insert"<<endl;
+	cout<<"3. Delete"<<endl;
+	cout<<"4. Sum"<<endl;
+	
+  //cout<<"5. Max"<<endl;
+  //cout<<"6. Min"<<endl;
+  //cout<<"7. Avg"<<endl;
+  //cout<<"8. Linear Search"<<endl;
+  //cout<<"9. Binary Search"<<endl;
+  //cout<<"10. Reverse the array"<<endl;
+  //cout<<"11. Insert Sort"<<endl;
+  //cout<<"12. Check if sorted"<<endl;
+  //cout<<"13. Rearrange"<<endl;
+  //cout<<"14.  Merge"<<endl;
+  //cout<<"15. Union"<<endl;
+  //cout<<"16. Intersection"<<endl;	
+  //cout<<"17. Difference"<<endl;
+	
+	cout<<"20. Exit"<<endl<<endl;
+	
+	cout<<"Enter your choice: "<<endl;
+	cin>>choice;
+	
+	switch(choice){
+		case 0:
+			display(arr1);
+			break;
+		case 1:
+			cout<<"Enter the element that you want to append: ";
+			cin>>x;
+			append(&arr1, x);
+			display(arr1);
+			break;
+		case 2:
+			cout<<"Enter the element that you want to Insert: ";
+			cin>>x;
+			cout<<"Enter the index: ";
+			cin>>y;
+			insert(&arr1, y, x);
+			display(arr1);
+			break;
+		case 3:
+			cout<<"At which index do you want to delete:";
+			cin>>y;
+			Delete(&arr1, y);
+			display(arr1);
+			break;
+		case 4:
+			cout<<"The sum of the array is: "<<endl;
+			cout<<Sum(arr1);
+			
+			break;	
+	}
+
+	}while(choice<20);
+	
+	return 0;	
+}
