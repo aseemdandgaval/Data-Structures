@@ -19,7 +19,7 @@ class Array{
 			A = new int[size];
 		}
 		
-		Array(int az){
+		Array(int sz){
 			size  = sz;
 			lenght = 0;
 			A = new int[size];
@@ -79,7 +79,7 @@ void Array::append(int x){
 void Array::insert(int index, int x){
 	if(index>=0 && index<= lenght){
 		for(int i=lenght; i>index; i--){
-			[i] = [i-1];
+			A[i] = A[i-1];
 		}
 		A[index] = x;
 		lenght++;
@@ -138,7 +138,7 @@ int Array::Sum(){
 }
 
 float Array::Avg(){
-	return Sum(arr)/lenght;
+	return Sum()/lenght;
 }
 
 void Array::swap(int *x, int *y){
@@ -150,8 +150,8 @@ void Array::swap(int *x, int *y){
 int Array::linearsearch(int key){
 	for (int i=0;i<lenght;i++){
 		if(key==A[i]){
-			swap(A[i],A[i-1]);     //Transposition
-			//swap(A[i],A[0]);     //Move to head/front
+			swap(&A[i],&A[i-1]);     //Transposition
+			//swap(&A[i],&A[0]);     //Move to head/front
 			return i;
 		}
 	}
@@ -187,13 +187,13 @@ void Array::Reverse(){
 	}
 
 	for(int i=0;i<lenght;i++){
-		[i] = B[i];
+		A[i] = B[i];
 	}
 }
 
 void Array::Reverse2(){
 	for(int i=0,j=lenght-1; i<j; i++,j--){
-		swap([i], [j]);
+		swap(&A[i], &A[j]);
 	}
 }
 
@@ -439,4 +439,3 @@ int main() {
 	
 	return 0;	
 }
-
