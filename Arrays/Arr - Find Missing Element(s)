@@ -79,7 +79,26 @@ int main() {
 	arr1.Mmiss1();
 	
 	
-	int B[10] = {3,7,4,9,12,6,1,11,2,10}
+	//2nd Method for finding missing multiple elements
+	int B[10] = {3,7,4,9,12,6,1,11,2,10};
+	
+	int low = 3;
+	int high = 12;
+	int n = 10;
+	
+	int C[high] = {0};
+	
+	for(int i=0; i<n; i++){
+		C[B[i]]++;
+	}
+	
+	cout<<"The missing elements are: ";
+	
+	for(int i=low; i<=high; i++){
+		if(C[i]==0){
+			cout<<i<<" ";
+		}
+	}
 	
 	
 	return 0;
