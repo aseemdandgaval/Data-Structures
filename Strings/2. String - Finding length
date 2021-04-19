@@ -1,0 +1,17 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+int main() {
+	
+	char *name = "john";
+	int i;
+	for(i=0; name[i]!='\0'; i++){
+	}	
+	
+	cout<<"The length of the string is: "<<i<<endl;
+	
+	return 0;
+}
