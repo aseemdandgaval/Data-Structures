@@ -1,0 +1,32 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+int main() {
+	
+	char temp;
+	temp = 'A';          //Correct
+  
+  //temp = 'AB';    
+  //temp = A;       	 //Wrong
+  //temp = "A";     
+
+	cout<<temp<<endl<<endl;
+	
+	char B[5];
+	char C[5] = {'A','B','C','D','E'};
+	char D[5] = {'A','B','C','D','E'};	
+	char E[5] = { 65,66,67,68,69};                //ASCII codes correspoding to letters
+	char F[5] = {'A','B'};                        //Other elements are 0
+	
+	char name[10] = {'j','o','h','n','\0'};       // \0 is a termination character
+	char name1[] = {'j','o','h','n','\0'};         //  5 spaces
+	char name2[] = "john";
+	char *name3 = "john";
+	
+	cout<<name3;
+	
+	return 0;
+}
