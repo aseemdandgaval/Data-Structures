@@ -42,6 +42,10 @@ class Matrix{
 				}
 				cout<<endl;
 			}
+		}
+		
+		~Matrix(){
+			delete []A;
 		}	
 		
 		
