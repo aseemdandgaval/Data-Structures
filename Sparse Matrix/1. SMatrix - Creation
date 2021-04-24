@@ -1,1 +1,65 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
+using namespace std;
+
+class Element{
+	public:
+		int i;
+		int j;
+		int x;
+};
+
+class Sparse{
+	private:
+		int m;
+		int n;
+		int num;
+		Element *ele;
+	
+	public:
+		Sparse(){
+			cout<<"Enter the rows of the matrix: "<<endl;
+			cin>>m;
+			cout<<"Enter the columns of the matrix: "<<endl;
+			cin>>n;
+			cout<<"Enter the no. of elements in the matrix: "<<endl;
+			cin>>num;
+			
+			ele = new Element[num];
+		}
+		
+		void read(){
+			cout<<"Enter the non-zero elements with thier position: "<<endl;
+			for(int i=0; i<num; i++){
+				cin>>ele[i].i>>ele[i].j>>ele[i].x;
+			}
+		}
+		
+		void Display(){
+			int k = 0;
+			for (int i = 0; i < m; i++){
+    			for (int j = 0; j < n; j++){
+        			if (ele[k].i == i && ele[k].j == j){
+            			cout << ele[k].x << " ";
+            			k++;
+        			}
+        			else{
+            			cout << "0 ";
+        			}
+    			}
+    			cout << endl;
+			}
+		}
+ 		
+		~Sparse(){
+			delete []ele;	
+		}
+};
+	
+int main() {
+	Sparse s1;
+	s1.read();
+	s1.Display();
+}
