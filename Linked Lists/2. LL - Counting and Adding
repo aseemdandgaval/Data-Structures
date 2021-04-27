@@ -1,0 +1,96 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+
+void Display(Node* p) {
+
+	while (p != nullptr) {
+		cout << p->data << " -> " << flush;
+		p = p->next;
+	}
+}
+
+void Counter(Node* p) {
+	int counter = 0;
+	while (p != nullptr) {
+		counter++;
+		p = p->next;
+	}
+	cout <<"The number of elements in the linked list are: "<< counter;
+}
+
+int RCounter(Node* p) {
+	if (p == nullptr) {
+		return 0;
+	}
+	else {
+		return 1 + RCounter(p->next);
+	}
+}
+
+int Add(Node* p) {
+	int sum = 0;
+	while (p != nullptr) {
+		sum = sum + p->data;
+		p = p->next;
+	}
+	return sum;
+}
+
+int RAdd(Node* p) {
+	if (p == nullptr) {
+		return 0;
+	}
+	else {
+		return p->data + RAdd(p->next);
+	}
+}
+
+int main() {
+	int A[] = { 1,2,3,4,5 };
+
+	Node* head;
+	head = new Node;
+
+	Node* temp;
+	Node* last;
+
+	head->data = A[0];
+	head->next = nullptr;
+	last = head;
+
+	for (int i = 1; i < sizeof(A) / sizeof(A[0]); i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = nullptr;
+
+		last->next = temp;
+		last = temp;
+	}
+
+	Display(head);
+	cout << endl<< endl;
+		
+	Counter(head);
+	cout << endl << endl; 
+	
+	cout<<RCounter(head);
+	cout << endl << endl;
+
+	cout<<Add(head);
+	cout << endl << endl;
+
+	cout << RAdd(head);
+	cout << endl << endl;
+  
+  return 0;
+  }
