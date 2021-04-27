@@ -1,0 +1,83 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+
+void Display(Node* p) {
+
+	while (p != nullptr) {
+		cout << p->data << " -> " << flush;
+		p = p->next;
+	}
+}
+
+
+int Max(Node* p) {
+	int max = -32768;
+	while (p != nullptr) {
+		if (p->data > max) {
+			max = p->data;
+			p = p->next;
+		}
+	}
+	return max;
+}
+
+int RMax(Node* p) {
+	int x = 0;
+	if (p == nullptr) {
+		return 0;
+	}
+	else {
+		x = RMax(p->next);
+		if (x > p->data)
+			return x;
+		else
+			return p->data;
+	}
+}
+
+int main() {
+	int A[] = { 1,2,3,4,5 };
+
+	Node* head;
+	head = new Node;
+
+	Node* temp;
+	Node* last;
+
+	head->data = A[0];
+	head->next = nullptr;
+	last = head;
+
+	for (int i = 1; i < sizeof(A) / sizeof(A[0]); i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = nullptr;
+
+		last->next = temp;
+		last = temp;
+	}
+
+	Display(head);
+	cout << endl<< endl;
+
+	cout << RAdd(head);
+	cout << endl << endl;
+
+	cout << Max(head);
+	cout << endl << endl;
+
+	cout << RMax(head);
+	cout << endl << endl;
+
+	return 0;
+}
