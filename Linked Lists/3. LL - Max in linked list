@@ -69,10 +69,7 @@ int main() {
 
 	Display(head);
 	cout << endl<< endl;
-
-	cout << RAdd(head);
-	cout << endl << endl;
-
+	
 	cout << Max(head);
 	cout << endl << endl;
 
