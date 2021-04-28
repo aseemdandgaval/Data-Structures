@@ -1,0 +1,113 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+}; 
+	Node* head ;
+	
+
+void create(int A[], int n) {
+	Node* temp;
+	Node* last;
+	head = new Node;
+
+	head->data = A[0];
+	head->next = NULL;
+	last = new Node;
+	last = head;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = NULL;
+
+		last->next = temp;
+		last = temp;
+		
+		cout << endl;
+	}
+}
+void Display(Node* p) {
+
+	while (p != NULL) {
+		cout << p->data << " -> " << flush;
+		p = p->next;
+	}
+}
+
+int Counter(Node* p) {
+	int counter = 0;
+	while (p != NULL) {
+		counter++;
+		p = p->next;
+	}
+	return counter;
+}
+
+void Insert(Node* p, int index, int x) {
+	if (index<0 || index> Counter(p)) {
+		return;
+	}
+
+	Node* temp;
+	temp = new Node;
+	temp->data = x;
+
+	if (index == 0) {
+		temp->next = head;
+		head = temp;
+	}
+	else {
+		for (int i = 0; i < index - 1; i++) {
+			p = p->next;
+		}
+			temp->next = p->next;
+			p->next = temp;
+		
+	}
+}	
+
+void InsertLast(int x) {
+	Node* temp = new Node;
+	temp->data = x;
+	temp->next = NULL;
+
+	Node* last = new Node;
+	if (head == NULL) {
+		head = last = temp;
+	}
+	else {
+		last->next = temp;
+		last = temp;
+	}
+}
+
+int main() {
+	int A[] = { 1,2,3,4,5 };
+
+	create(A,5);
+
+	Display(head);
+	cout << endl<< endl;
+	
+	//Insert(head, 0, 11);
+	//Insert(head, 1, 22);
+	//Insert(head, 2, 33);
+	//Insert(head, 3, 44);
+	//Insert(head, 4, 55); 
+
+	InsertLast(22);
+
+	Display(head);
+	cout << endl << endl;
+
+	return 0;
+}
+
