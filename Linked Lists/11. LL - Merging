@@ -1,0 +1,151 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+Node* head;
+Node* first = NULL;
+Node* second = NULL;
+Node* third = NULL;
+
+
+void create(int A[], int n) {
+	Node* temp;
+	Node* last;
+	head = new Node;
+
+	head->data = A[0];
+	head->next = NULL;
+	last = new Node;
+	last = head;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = NULL;
+
+		last->next = temp;
+		last = temp;
+
+		cout << endl;
+	}
+}
+
+void create1(int A[], int n) {
+	Node* temp;
+	Node* last;
+	first = new Node;
+
+	first->data = A[0];
+	first->next = NULL;
+	last = new Node;
+	last = first;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = NULL;
+
+		last->next = temp;
+		last = temp;
+
+		cout << endl;
+	}
+}
+
+void create2(int A[], int n) {
+	Node* temp;
+	Node* last;
+	second = new Node;
+
+	second->data = A[0];
+	second->next = NULL;
+	last = new Node;
+	last = second;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = NULL;
+
+		last->next = temp;
+		last = temp;
+
+		cout << endl;
+	}
+}
+
+void Display(Node* p) {
+
+	while (p != NULL) {
+		cout << p->data << " -> " << flush;
+		p = p->next;
+	}
+}
+
+void Merge(Node* first, Node* second) {
+	Node* last;
+	if (first->data < second->data) {
+		third = last = first;
+		first = first->next;
+		third->next = NULL;
+	}
+	else {
+		third = last = second;
+		second = second->next;
+		third->next = NULL;
+	}
+
+	while (first && second) {
+		if (first->data < second->data) {
+			last->next = first;
+			last = first;
+			first = first->next;
+			last->next = NULL;
+		}
+		else {
+			last->next = second;
+			last = second;
+			second = second->next;
+			last->next = NULL;
+		}
+	}
+	if (first) {
+		last->next = first;
+	}
+	if (second) {
+		last->next = second;
+	}
+}
+
+int main() {
+	int A[] = { 1,3,5,7,9 };
+	int B[] = { 2,4,6,8,10 };
+	create1(A, 5);
+	create2(B, 5);
+
+
+	cout << "First:" << endl;
+	Display(first);
+	cout << endl << endl;
+
+	cout << "Second:" << endl;
+	Display(second);
+	cout << endl << endl;
+
+	cout << "Merged List:" << endl;
+	Merge(first, second);
+	Display(third);
+	cout << endl << endl;
+
+	return 0;
+}
