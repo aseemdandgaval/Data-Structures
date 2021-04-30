@@ -1,0 +1,42 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+Node* head;
+
+void CDisplay(Node *p) {
+	do {
+		cout << p->data<<" ";
+		p = p->next;
+	} while (p != head);
+}
+
+void RCDisplay(Node* p) {
+	static int flag = 0;
+	if (p != head || flag == 0) {
+		flag = 1;
+		cout << p->data<<" ";
+		RCDisplay(p->next);
+	}
+	flag = 0;
+}
+
+int main() {
+	int A[] = { 1,3,5,7,9 };
+
+	createCLL(A, 5);
+
+	RCDisplay(head);
+	cout << endl << endl;
+
+
+	return 0;
+}
+
