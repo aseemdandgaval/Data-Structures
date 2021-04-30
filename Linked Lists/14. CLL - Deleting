@@ -1,0 +1,62 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+Node* head = NULL;
+
+int CDelete(Node* p, int index) {
+	Node* q;
+	int x;
+
+	if (index<0 || index>CCounter(p)) {
+		return -1;
+	}
+
+	if (index == 1) {
+		while (p->next != head) {
+			p = p->next;
+		}
+		x = head->data;
+		if (head == p) {
+			delete head;
+		}
+		else {
+			p->next = head->next;
+			delete head;
+			head = p->next;
+		}
+	}
+	else {
+		for (int i = 0; i < index - 2; i++) {
+			p = p->next;
+		}
+		q = p->next;
+		p->next = q->next;
+		x = q->data;
+		delete q;
+	}
+}
+
+int main() {
+	int A[] = { 1,3,5,7,9 };
+
+	createCLL(A, 5);
+
+	CDisplay(head);
+	cout << endl << endl;
+
+	CDelete(head, 2);
+
+	CDisplay(head);
+	cout << endl << endl;
+
+	return 0;
+}
+
