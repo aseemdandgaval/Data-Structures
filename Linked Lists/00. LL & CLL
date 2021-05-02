@@ -1,0 +1,424 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+Node* head = NULL;
+Node* first = NULL;
+Node* second = NULL;
+Node* third = NULL;
+
+
+void create(int A[], int n) {
+	Node* temp;
+	Node* last;
+	head = new Node;
+
+	head->data = A[0];
+	head->next = NULL;
+	last = new Node;
+	last = head;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = NULL;
+
+		last->next = temp;
+		last = temp;
+
+		cout << endl;
+	}
+}
+
+void create1(int A[], int n) {
+	Node* temp;
+	Node* last;
+	first = new Node;
+
+	first->data = A[0];
+	first->next = NULL;
+	last = new Node;
+	last = first;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = NULL;
+
+		last->next = temp;
+		last = temp;
+
+		cout << endl;
+	}
+}
+
+void create2(int A[], int n) {
+	Node* temp;
+	Node* last;
+	second = new Node;
+
+	second->data = A[0];
+	second->next = NULL;
+	last = new Node;
+	last = second;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+
+		temp->data = A[i];
+		temp->next = NULL;
+
+		last->next = temp;
+		last = temp;
+
+		cout << endl;
+	}
+}
+
+void Display(Node* p) {
+
+	while (p != NULL) {
+		cout << p->data << " -> " << flush;
+		p = p->next;
+	}
+}
+
+int Counter(Node* p) {
+	int counter = 0;
+	while (p != NULL) {
+		counter++;
+		p = p->next;
+	}
+	return counter;
+}
+
+void Insert(Node* p, int index, int x) {
+	if (index<0 || index> Counter(p)) {
+		return;
+	}
+
+	Node* temp;
+	temp = new Node;
+	temp->data = x;
+
+	if (index == 0) {
+		temp->next = head;
+		head = temp;
+	}
+	else {
+		for (int i = 0; i < index - 1; i++) {
+			p = p->next;
+		}
+		temp->next = p->next;
+		p->next = temp;
+
+	}
+}
+
+void InsertinSorted(Node* p, int x) {
+	Node* temp;
+	Node* follow = NULL;
+
+	temp = new Node;
+	temp->data = x;
+	temp->next = NULL;
+
+	if (head == 0) {
+		head = temp;
+	}
+	else {
+		while (p && p->data < x) {
+			follow = p;
+			p = p->next;
+		}
+
+		if (p == head) {
+			temp->next = head;
+			head = temp;
+		}
+		else {
+			temp->next = follow->next;
+			follow->next = temp;
+		}
+	}
+}
+
+int Delete(Node* p, int index) {
+	Node* tail = NULL;
+	int x = -1;
+
+	if (index<1 || index > Counter(p)) {
+		return -1;
+	}
+
+	if (index == 1) {
+		tail = head;
+		x = head->data;
+		head = head->next;
+		delete tail;
+		return x;
+	}
+	else {
+		for (int i = 0; i < index - 1; i++) {
+			tail = p;
+			p = p->next;
+		}
+		tail->next = p->next;
+		x = p->data;
+		delete p;
+		return x;
+	}
+
+}
+
+int IsSorted(Node* p) {
+	int x = -300000;
+
+	while (p != NULL) {
+		if (p->data > x) {
+			x = p->data;
+			p = p->next;
+		}
+		else {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+void RemoveDupli(Node* p) {
+	Node* succ = p->next;
+	while (succ != NULL) {
+		if (p->data != succ->data) {
+			p = succ;
+			succ = succ->next;
+		}
+		else {
+			p->next = succ->next;
+			delete succ;
+			succ = p->next;
+		}
+	}
+}
+
+void ReverseEle(Node* p) {
+	int* A;
+	A = new int[Counter(p)];
+	int i = 0;
+	Node* temp = p;
+
+	while (temp != NULL) {
+		A[i] = temp->data;
+		temp = temp->next;
+		i++;
+	}
+	temp = p;
+	i--;
+
+	while (temp != NULL) {
+		temp->data = A[i];
+		temp = temp->next;
+		i--;
+	}
+}
+
+void ReverseLink(Node* p) {
+	Node* back = NULL;
+	Node* mid = NULL;
+
+	while (p != NULL) {
+		back = mid;
+		mid = p;
+		p = p->next;
+		mid->next = back;
+	}
+	head = mid;
+
+}
+
+void Concatonate(Node* p, Node* q) {
+	third = p;
+
+	while (p->next != NULL) {
+		p = p->next;
+	}
+	p->next = q;
+}
+
+void Merge(Node* first, Node* second) {
+	Node* last;
+	if (first->data < second->data) {
+		third = last = first;
+		first = first->next;
+		third->next = NULL;
+	}
+	else {
+		third = last = second;
+		second = second->next;
+		third->next = NULL;
+	}
+
+	while (first && second) {
+		if (first->data < second->data) {
+			last->next = first;
+			last = first;
+			first = first->next;
+			last->next = NULL;
+		}
+		else {
+			last->next = second;
+			last = second;
+			second = second->next;
+			last->next = NULL;
+		}
+	}
+	if (first) {
+		last->next = first;
+	}
+	if (second) {
+		last->next = second;
+	}
+}
+void CheckLoop(Node* p) {
+}
+
+void createCLL(int A[], int n) {
+	Node* temp;
+	Node* last;
+	head = new Node;
+
+	head->data = A[0];
+	head->next = head;
+	last = head;
+
+	for (int i = 1; i < n; i++) {
+		temp = new Node;
+		temp->data = A[i];
+		temp->next = last->next;
+		last->next = temp;
+		last = temp;
+	}
+}
+
+void CDisplay(Node *p) {
+	do {
+		cout << p->data<<" ";
+		p = p->next;
+	} while (p != head);
+}
+
+void RCDisplay(Node* p) {
+	static int flag = 0;
+	if (p != head || flag == 0) {
+		flag = 1;
+		cout << p->data<<" ";
+		RCDisplay(p->next);
+	}
+	flag = 0;
+}
+
+int CCounter(Node* p) {
+	int count = 0;
+	if (p == NULL) // Right Here
+
+		return count;
+
+	do {
+		count++;
+		p = p->next;
+	} while (p != head);
+	return count;
+}
+
+void CInsert(Node *p, int index, int x) {
+	Node* temp;
+
+	if (index<0 || index>CCounter(p)) {
+		return;
+	}
+
+	if (index == 0) {
+		temp = new Node;
+		temp->data = x;
+		if (head == NULL) {
+			head = temp;
+			head->next = head;
+		}
+		else {
+			while (p->next != head) {
+			p = p->next;
+			}
+			p->next = temp;
+			temp->next = head;
+			head = temp;
+		}
+	}
+	else {
+		for (int i = 0; i < index - 1; i++) {
+			p = p->next;
+		}
+		temp = new Node;
+		temp->data = x;
+		temp->next = p->next;
+		p->next = temp;
+	}
+}
+
+int CDelete(Node* p, int index) {
+	Node* q;
+	int x;
+
+	if (index<0 || index>CCounter(p)) {
+		return -1;
+	}
+
+	if (index == 1) {
+		while (p->next != head) {
+			p = p->next;
+		}
+		x = head->data;
+		if (head == p) {
+			delete head;
+		}
+		else {
+			p->next = head->next;
+			delete head;
+			head = p->next;
+		}
+	}
+	else {
+		for (int i = 0; i < index - 2; i++) {
+			p = p->next;
+		}
+		q = p->next;
+		p->next = q->next;
+		x = q->data;
+		delete q;
+	}
+}
+
+int main() {
+	int A[] = { 1,3,5,7,9 };
+
+	createCLL(A, 5);
+
+	CDisplay(head);
+	cout << endl << endl;
+
+	CDelete(head, 2);
+
+	CDisplay(head);
+	cout << endl << endl;
+
+	return 0;
+}
+
