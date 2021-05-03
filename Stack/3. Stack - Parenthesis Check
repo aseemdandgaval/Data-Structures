@@ -1,0 +1,78 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	char data;
+	Node* next;
+};
+Node* Top;
+
+void Display(Node* p) {
+	
+	while (p!=NULL) {
+		cout << p->data <<" ";
+		p = p->next;
+	}
+}
+void Push(char x) {
+	Node* temp = new Node;
+
+	if (temp == NULL) {
+		cout << "Stack overflow." << endl;
+	}
+	else {
+		temp->data = x;
+		temp->next = Top;
+		Top = temp;
+	}
+}
+
+char Pop() {
+	char x = -1;
+	Node* temp;
+
+	if (Top == NULL) {
+		cout << "Stack underflow." << endl;
+	}
+	else {
+		temp = Top;
+		Top = Top->next;
+		x = temp->data;
+		delete temp;
+	}
+	return x;
+}
+
+int isBalanced(char* exp) {
+	for (int i = 0; exp[i] != '\0'; i++) {
+		if (exp[i] == '(') {
+			Push(exp[i]);
+		}
+		else if (exp[i] == ')') {
+			if (Top == NULL) {
+				return 0;
+			}
+			else {
+				Pop();
+			}
+		}
+	}
+
+	if (Top == NULL) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+int main() {
+	char* exp = "((a+b) * (c-d))";
+	
+	cout<<isBalanced(exp);
+
+}
