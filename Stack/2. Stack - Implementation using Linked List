@@ -1,0 +1,63 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+Node* Top;
+
+void Display(Node* p) {
+	
+	while (p!=NULL) {
+		cout << p->data <<" ";
+		p = p->next;
+	}
+}
+void Push(int x) {
+	Node* temp = new Node;
+
+	if (temp == NULL) {
+		cout << "Stack overflow." << endl;
+	}
+	else {
+		temp->data = x;
+		temp->next = Top;
+		Top = temp;
+	}
+}
+
+int Pop() {
+	int x = -1;
+	Node* temp;
+
+	if (Top == NULL) {
+		cout << "Stack underflow." << endl;
+	}
+	else {
+		temp = Top;
+		Top = Top->next;
+		x = temp->data;
+		delete temp;
+	}
+	return x;
+}
+
+int main() {
+	Push(10);
+	Push(9); 
+	Push(7);
+
+	Display(Top);
+	cout << endl << endl;
+	
+	Pop();
+	
+	Display(Top);
+	cout << endl << endl;
+}
+
