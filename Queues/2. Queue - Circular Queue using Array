@@ -1,0 +1,75 @@
+ #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Queue {
+public:
+	int size;
+	int front;
+	int rear;
+	int* Q;
+
+};
+
+
+void create(Queue* q, int size) {
+	q->size = size;
+	q->Q = new int[q->size];
+	q->front = q->rear = -1;
+}
+
+
+void Enqueue(Queue *q, int x) {
+	if ((q->rear + 1) % q->size == q->front ) {
+		cout << "Queue is full" << endl;
+	}
+	else {
+		q->rear = (q->rear + 1) % q->size;
+		q->Q[q->rear] = x;
+	}
+}
+
+int Dequeue(Queue* q) {
+	int x = -1;
+
+	if (q->front == q->rear) {
+		cout << "Queue is full" << endl;
+	}
+	else {
+		q->front = (q->front + 1) % q->size;
+		x = q->Q[q->front];
+	}
+	
+	return x;
+}
+
+void Display(Queue* q) {
+	int i = q->front + 1;
+
+	do {
+		cout << q->Q[i]<<" ";
+		i = (i + 1) % q->size;
+	} 	
+	while ((i != q->rear + 1) % q->size);
+}
+
+int main() {
+	Queue q1; 
+	
+	create(&q1, 6);
+
+	Enqueue(&q1, 1);
+	Enqueue(&q1, 2);
+	Enqueue(&q1, 3);
+	Enqueue(&q1, 4);
+	Enqueue(&q1, 5);
+
+	Dequeue(&q1);
+	Dequeue(&q1);
+
+	Display(&q1);
+	cout << endl << endl;
+
+}
