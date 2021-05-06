@@ -1,0 +1,79 @@
+ #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+Node* front = NULL;
+Node* rear = NULL;
+
+void Enqueue(int x) {
+	Node* temp;
+	temp = new Node;
+
+	if (temp == NULL) {
+		cout << "Queue is Full."<<endl;
+	}
+	else {
+		temp->data = x;
+		temp->next = NULL;
+
+		if (front == NULL) {
+			front = rear = temp;
+		}
+		else {
+			rear->next = temp;
+			rear = temp;
+		}
+	}
+}
+
+int Dequeue() {
+	int x = -1;
+
+	Node* temp;
+
+	if (front == NULL) {
+		cout << "Queue is empty." << endl;
+	}
+	else {
+		x = front->data;
+		temp = front;
+		front = front->next;
+		delete temp;
+	}
+	
+	return x;
+}
+
+void Display() {
+	Node* p;
+	p = front;
+	while (p != NULL) {
+		cout << p->data<<" ";
+		p = p->next;
+	}
+}
+
+int main() {
+	
+	Enqueue(10);
+	Enqueue(20);
+	Enqueue(30);
+	Enqueue(40);
+	Enqueue(50);
+	Enqueue(60);
+
+	Dequeue();
+	Dequeue();
+
+	Display();
+	cout << endl << endl;
+
+}
+
