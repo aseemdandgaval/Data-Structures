@@ -1,3 +1,78 @@
+--------------------------------------HEADER FILE-----------------------------------
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+using namespace std;
+
+class Node {
+public:
+	Node* lchild;
+	int data;
+	Node* rchild;
+};
+
+class Queue {
+private:
+	int size;
+	int front;
+	int rear;
+	Node** Q;
+
+public:
+	Queue() {
+		front = rear = -1;
+		size = 10;
+		Q = new Node * [size];
+	}
+
+	Queue(int size) {
+		front = rear = -1;
+		this->size = size;
+		Q = new Node * [this->size];
+	}
+
+	void Enqueue(Node* x) {
+		if (rear == size - 1) {
+			cout << "Queue is full" << endl;
+		}
+		else {
+			rear++;
+			Q[rear] = x;
+		}
+	}
+
+	Node* Dequeue() {
+		Node* x = NULL;
+
+		if (front == rear) {
+			cout << "Queue is full" << endl;
+		}
+		else {
+			front++;
+			x = Q[front];
+		}
+
+		return x;
+	}
+
+	int isEmpty()
+	{
+		return front == rear;
+	}
+
+	void Display() {
+		for (int i = front + 1; i <= rear; i++) {
+			cout << Q[i] << " ";
+		}
+	}
+
+};
+
+--------------------------------------------------------------------------------
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
