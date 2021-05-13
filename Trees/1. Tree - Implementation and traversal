@@ -1,0 +1,150 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include "Queue.h"
+
+using namespace std;
+
+class Tree {
+private:
+	Node* root;
+public:
+	Tree() {
+		root = NULL;
+	}
+
+	void CreateTree();
+
+	void PreOrder() { PreOrder(root); };
+	void PreOrder(Node* p);
+
+	void PostOrder() { PostOrder(root); };
+	void PostOrder(Node* p);
+
+	void InOrder() { InOrder(root); };
+	void InOrder(Node* p);
+
+	void LevelOrder() { LevelOrder(root); };
+	void LevelOrder(Node* p);
+
+	int Height() { return Height(root); };
+	int Height(Node* root);
+
+};
+	void Tree::CreateTree() {
+		Node* p;
+		Node* temp;
+		int x;
+		Queue q(100);
+
+		cout << "Enter root value: ";
+		cin >> x;
+		root = new Node;
+		root->data = x;
+		root->lchild = root->rchild = NULL;
+		q.Enqueue(root);
+
+		while (!q.isEmpty()) {
+			p = q.Dequeue();
+			cout << "Enter left child of " << p->data << ": ";
+			cin >> x;
+			if (x != -1) {
+				temp = new Node;
+				temp->data = x;
+				temp->rchild = NULL;
+				temp->lchild = NULL;
+				p->lchild = temp;
+				q.Enqueue(temp);
+
+			}
+
+			cout << "Enter left child of " << p->data << ": ";
+			cin >> x;
+			if (x != -1) {
+				temp = new Node;
+				temp->data = x;
+				temp->rchild = NULL;
+				temp->lchild = NULL;
+				p->rchild = temp;
+				q.Enqueue(temp);
+			}
+		}
+	}
+
+	void Tree::PreOrder(Node* p) {
+		if (p) {
+			cout << p->data <<" " ;
+			PreOrder(p->lchild);
+			PreOrder(p->rchild);
+		}
+	}
+
+	void Tree::InOrder(Node* p) {
+		if (p) {
+			InOrder(p->lchild);
+			cout << p->data << " ";
+			InOrder(p->rchild);
+		}
+	}
+
+	 void Tree::PostOrder(Node* p){
+		if (p){ 
+			PostOrder(p->lchild);
+			PostOrder(p->rchild);
+			cout<<p->data << " ";
+		} 
+	}
+	
+	 void Tree::LevelOrder(Node* p) {
+		 Queue q(100);
+
+		 cout << p->data << " ";
+		 q.Enqueue(root);
+
+		 while (!q.isEmpty()) {
+			 root = q.Dequeue();
+
+			 if (root->lchild) {
+				 cout << root->lchild->data;
+				 q.Enqueue(root->lchild);
+			 }
+
+			 if (root->rchild) {
+				 cout << root->rchild->data;
+				 q.Enqueue(root->rchild);
+			 }
+		 }
+	 }
+
+	 int Tree::Height(Node* root) {
+		 int x = 0, y = 0;
+		 
+		 if (root == 0) {
+			 return 0;
+		 }
+
+		 x = Height(root->lchild);
+		 y = Height(root->rchild);
+
+		 if (x > y) 
+			 return x + 1;
+		 else 
+			 return y + 1;
+	 }
+
+
+
+int main() {
+	
+	Tree t;
+	t.CreateTree();
+	
+	cout << "Pre-Order: ";
+	t.PreOrder();
+	cout << endl << endl ;
+
+	cout << "In-Order: ";
+	t.InOrder();
+	cout << endl << endl;
+
+} 
