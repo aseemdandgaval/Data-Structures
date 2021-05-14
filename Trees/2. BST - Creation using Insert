@@ -1,0 +1,79 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+using namespace std;
+
+class Node {
+public:
+	Node* lchild;
+	Node* rchild;
+	int data;
+
+	//friend void insert(int key);  if you want to make the members as private
+};
+Node* root = NULL;
+
+void Insert(int key) {
+	Node* temp;					// temp is the head pointer
+	Node* r = NULL;					// r is tailing pointer
+	Node* p;					// p is the pointer to insert value
+
+	temp = root;
+
+	if (root == NULL) {
+		p = new Node;
+		p->data = key;
+		p->lchild = p->rchild = NULL;
+		root = p;
+		return;
+	}
+
+	while (temp != NULL) {
+		r = temp;
+
+		if (key < temp->data) {
+			temp = temp->lchild;
+		}
+		else if (key > temp->data) {
+			temp = temp->rchild;
+		}
+		else {
+			return;
+		}
+	}
+
+
+	p = new Node;
+	p->lchild = p->rchild = NULL;
+	p->data = key;
+
+	if (key < r->data){
+		r->lchild = p;
+	}
+	else {
+		r->rchild = p;
+	}
+}
+
+void InOrder(Node* p) {
+	if (p != NULL) {
+		InOrder(p->lchild);
+		cout << p->data<<" ";
+		InOrder(p->rchild);
+	}
+}
+
+int main() {
+	
+	Insert(30);
+	Insert(20);
+	Insert(25);
+	Insert(35);
+
+	InOrder(root);
+	cout << endl << endl;
+
+
+} 
