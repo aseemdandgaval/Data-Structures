@@ -136,10 +136,10 @@ Node* RInsert(Node* p, int key) {
 	else if (Balancefactor(p) == 2 && Balancefactor(p->lchild) == -1) {
 		return LRRotation(p);
 	}
-	else if (Balancefactor(p) == -2 && Balancefactor(p->lchild) == -1) {
+	else if (Balancefactor(p) == -2 && Balancefactor(p->rchild) == -1) {
 		return RRRotation(p);
 	}
-	else if (Balancefactor(p) == -2 && Balancefactor(p->lchild) == 1) {
+	else if (Balancefactor(p) == -2 && Balancefactor(p->rchild) == 1) {
 		return RLRotation(p);
 	}
 
