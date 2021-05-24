@@ -8,6 +8,8 @@
     3. Adaptive: Yes
     4. Stable: Yes
     5. Extra Memory: No
+    
+    Works much better with Linked Lists
 */
 
 #include <iostream>
