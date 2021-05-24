@@ -1,0 +1,33 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+void Insert(int A[], int n)
+{
+    int i = n;
+    int temp = A[n];
+    
+    while (i > 0 && temp > A[i / 2]) {
+        A[i] = A[i / 2];
+        i = i / 2;
+    }
+     A[i] = temp;
+}
+
+int main()
+
+{
+    int arr[] = { 10,20,30,25,5,40,35 };
+    cout<<"Array representation of heap is: ";
+    
+    for (int i = 2; i < 7; i++) {
+        Insert(arr, i);
+    }
+    
+    for (int i = 0; i < 7; i++) {
+        printf(" %d ", arr[i]);
+    }
+}
+
