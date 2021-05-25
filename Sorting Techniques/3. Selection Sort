@@ -1,0 +1,52 @@
+/*
+    0. Time Complexity: O(N^2)
+        Min: O(N)
+        Max: O(N^2)
+
+    1. No. Of Comaprisons: O(N^2)
+    2. No. Of Swaps: O(N)
+    3. Adaptive: No
+    4. Stable: No
+    5. Extra Memory: No
+*/
+
+#include <iostream>
+
+using namespace std;
+
+void Swap(int* x, int* y) {
+    int temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+
+}
+
+void SelectionSort(int A[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int min = i;
+
+        for (int j = i + 1; j < n; j++) {
+            if (A[j] < A[min]) {
+                min = j;
+            }
+        }
+
+        if (min != i) {
+            Swap(&A[i], &A[min]);
+        }
+    }
+}
+
+int main()
+{
+    int A[] = { 7,6,9,0,5,1,2 };
+    int n = 7;
+    SelectionSort(A, n);
+
+    for (int k = 0; k < n; k++) {
+        cout << A[k] << " ";
+    }
+
+
+}
