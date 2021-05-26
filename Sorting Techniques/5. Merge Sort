@@ -3,8 +3,8 @@
         Min: O(N.logN) 
         Max: O(N.logN) 
 
-    1. No. Of Comaprisons: O(N.logN)   
-    2. No. Of Swaps: O(N.logN)
+    1. No. Of Comaprisons: -   
+    2. No. Of Swaps: -
     3. Adaptive: No
     4. Stable: Yes
     5. Extra Memory: No
