@@ -60,6 +60,11 @@ void Display() {
 	}
 }
 
+int isEmpty() {
+	return front == NULL;
+}
+
+
 int main() {
 	
 	Enqueue(10);
