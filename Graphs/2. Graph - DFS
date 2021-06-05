@@ -1,0 +1,108 @@
+---------------HEADER FILE------------------------------
+
+// Queue using LINKED LIST
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Node {
+public:
+	int data;
+	Node* next;
+};
+Node* front = NULL;
+Node* rear = NULL;
+
+void Enqueue(int x) {
+	Node* temp;
+	temp = new Node;
+
+	if (temp == NULL) {
+		cout << "Queue is Full." << endl;
+	}
+	else {
+		temp->data = x;
+		temp->next = NULL;
+
+		if (front == NULL) {
+			front = rear = temp;
+		}
+		else {
+			rear->next = temp;
+			rear = temp;
+		}
+	}
+}
+
+int Dequeue() {
+	int x = -1;
+
+	Node* temp;
+
+	if (front == NULL) {
+		cout << "Queue is empty." << endl;
+	}
+	else {
+		x = front->data;
+		temp = front;
+		front = front->next;
+		delete temp;
+	}
+
+	return x;
+}
+
+void Display() {
+	Node* p;
+	p = front;
+	while (p != NULL) {
+		cout << p->data << " ";
+		p = p->next;
+	}
+}
+
+int isEmpty() {
+	return front == NULL;
+}
+
+---------------------------------------------------------------------
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include "Queue.h"
+
+using namespace std;
+
+void DFS(int G[][7], int start, int n) {
+    static int visited[7] = { 0 };
+
+    if (visited[start] == 0) {
+        cout << start << " ";
+        visited[start] = 1;
+
+        for(int j = 1; j < n; j++){
+            if (G[start][j] == 1 && visited[j] == 0) {
+                DFS(G, j, n);
+            }
+        }
+    }
+}
+
+int main()
+
+{
+    int G[7][7] = { {0,0,0,0,0,0,0},
+                    {0,0,1,1,0,0,0}, 
+                    {0,1,0,0,1,0,0},
+                    {0,1,0,0,1,0,0},
+                    {0,0,1,1,0,1,1},
+                    {0,0,0,0,1,0,0},
+                    {0,0,0,0,1,0,0} };
+
+    DFS(G, 4, 7);
+
+}
